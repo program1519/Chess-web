@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Chess Project</title>
+  <link rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="./chessboard/css/chessboard-0.3.0.min.css">
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      margin-bottom: 20px;
+      background-color: white;
+      color: black;
+    }
+    .navbar-brand, .navbar-nav .nav-link {
+      color: black;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #28a745;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background-color: #1f1f1f;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    .form-control {
+      background-color: #1e1e1e;
+      color: white;
+      border: 1px solid #444;
+    }
+    .form-control:focus {
+      background-color: #333;
+      border-color: #666;
+    }
+    .btn-success {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+    #roomNumbers {
+      margin: 10px 0;
+    }
+    #state {
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-align: center;
+    }
+    #board {
+      margin: auto;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Chess Project</a>
+  </nav>
+
+  <div class="container">
+    <div id="board" style="width: 500px; margin: auto;"></div>
+
+    <div style="margin: auto;">
+      <div id="player"></div>
+      <div id="roomNumbers">รหัสห้อง </div>
+      <form onsubmit="connect(); return false;">
+        <div class="row">
+          <div class="col">
+            <input type="number" id="room" min="0" max="9999" 
+                   class="form-control form-control-md number" required>
+          </div>
+          <div class="col">
+            <button id="button" class="btn btn-success">เข้าร่วม</button>
+          </div>
+        </div>
+      </form>
+      <div id="state">By.program1519</div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
+  <script src="./chessboard/js/chessboard-0.3.0.min.js"></script>
+  <script src="./game.js"></script>
+  
+  <script>
+   
+    const board = ChessBoard('board', {
+      draggable: true,
+      position: 'start',
+      onDrop: handleMove
+    });
+
+    function handleMove(source, target) {
+    
+      console.log(`Moved from ${source} to ${target}`);
+    }
+
+    function connect() {
+      const roomNumber = document.getElementById('room').value;
+      console.log(`Connecting to room: ${roomNumber}`);
+     
+    }
+  </script>
+</body>
+
+</html>
